@@ -269,7 +269,7 @@ WildRydes.map = WildRydes.map || {};
             data: JSON.stringify({
                 title: title,
                 comment: comment,
-                score: score
+                score: parseInt(score)
             }),
             contentType: 'application/json',
             success: function() {
