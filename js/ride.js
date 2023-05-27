@@ -74,6 +74,32 @@ WildRydes.map = WildRydes.map || {};
         });
     }
 
+    
+    //function to search for items with a given title
+    function searchitems() {
+        var title = document.getElementById("search_title").value;
+        // use jquery ajax to get the items with API endpoint _config.api.invokeUrl + '/searchitems',
+        // using the authToken
+        console.log('Searching for items starting with: ' + title);
+        $.ajax({
+            method: 'GET',
+            url: _config.api.invokeUrl + '/getfilteritems',
+            headers: {
+                Authorization: authToken
+            },
+            data: JSON.stringify({
+                'title': title
+            }),
+            contentType: 'application/json',
+            success: displayItems,
+            error: function ajaxError(jqXHR, textStatus, errorThrown) {
+                console.error('Error getting items: ', textStatus, ', Details: ', errorThrown);
+                console.error('Response: ', jqXHR.responseText);
+                alert('An error occured when getting your items:\n' + jqXHR.responseText);
+            }
+        });
+    }
+
     // function to display items in the list from json
     // the html list has the id "items"
     function displayItems(json) {
@@ -221,32 +247,6 @@ WildRydes.map = WildRydes.map || {};
     }
 
 
-    //function to search for items with a given title
-    function searchitems() {
-        var title = document.getElementById("search_title").value;
-        // use jquery ajax to get the items with API endpoint _config.api.invokeUrl + '/searchitems',
-        // using the authToken
-        console.log('Searching for items starting with: ' + title);
-        $.ajax({
-            method: 'GET',
-            url: _config.api.invokeUrl + '/getfilteritems',
-            headers: {
-                Authorization: authToken
-            },
-            data: JSON.stringify({
-                'title': title
-            }),
-            contentType: 'application/json',
-            success: displayItems,
-            error: function ajaxError(jqXHR, textStatus, errorThrown) {
-                console.error('Error getting items: ', textStatus, ', Details: ', errorThrown);
-                console.error('Response: ', jqXHR.responseText);
-                alert('An error occured when getting your items:\n' + jqXHR.responseText);
-            }
-        }).done(function(result) {
-            console.log('Finisheed filtering, result: ' + result);
-        });
-    }
 
     //function to make a list item editable
     function makeItemEditable(li) {
