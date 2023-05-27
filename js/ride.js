@@ -201,7 +201,7 @@ WildRydes.map = WildRydes.map || {};
         var title = li.title;
         // use jquery ajax to delete the item with API endpoint _config.api.invokeUrl + '/deleteitem',
         console.log('Deleting item');
-        console.log(title_lowercase);
+        console.log(title);
 
         $.ajax({
             method: 'DELETE',
