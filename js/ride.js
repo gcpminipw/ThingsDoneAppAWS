@@ -119,7 +119,10 @@ WildRydes.map = WildRydes.map || {};
         // // thingsdoneapp
         // $('#search_button').click(searchitems);
         $('#additem_button').click(addItem);
-        $('#refresh_button').click(getItems);
+        $('#refresh_button').click(function(){
+            alert("The paragraph was clicked.");
+            getItems();
+        });
         // get the list of items from the server
         console.log("getting items");
         getItems();
