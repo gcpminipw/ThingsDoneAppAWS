@@ -233,9 +233,9 @@ WildRydes.map = WildRydes.map || {};
             headers: {
                 Authorization: authToken
             },
-            data: {
+            data: JSON.stringify({
                 'title': title
-            },
+            }),
             contentType: 'application/json',
             success: displayItems,
             error: function ajaxError(jqXHR, textStatus, errorThrown) {
@@ -267,9 +267,9 @@ WildRydes.map = WildRydes.map || {};
                 Authorization: authToken
             },
             data: JSON.stringify({
-                title: title,
-                comment: comment,
-                score: parseInt(score)
+                'title': title,
+                'comment': comment,
+                'score': parseInt(score)
             }),
             contentType: 'application/json',
             success: function() {
