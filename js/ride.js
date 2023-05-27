@@ -87,15 +87,14 @@ WildRydes.map = WildRydes.map || {};
             headers: {
                 Authorization: authToken
             },
-            data: JSON.stringify({
-                title: title
-            }),
+            data: {
+                'title': title
+            },
             contentType: 'application/json',
             success: displayItems,
             error: function ajaxError(jqXHR, textStatus, errorThrown) {
                 console.error('Error getting items: ', textStatus, ', Details: ', errorThrown);
                 console.error('Response: ', jqXHR.responseText);
-                alert('An error occured when getting your items:\n' + jqXHR.responseText);
             }
         });
     }
