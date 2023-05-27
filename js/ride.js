@@ -171,11 +171,11 @@ WildRydes.map = WildRydes.map || {};
         var score = document.getElementById("score").value;
         // use jquery ajax to post the item to API endpoint _config.api.invokeUrl + '/additem',
         // using the authToken
-        console.log('adding item');
+        console.log('Adding item');
         //print item to be added
-        console.log(title);
-        console.log(comment);
-        console.log(score);
+        console.log('Title: ' + title);
+        console.log('Comment: ' + comment);
+        console.log('Score: ' + score);
         $.ajax({
             method: 'POST',
             url: _config.api.invokeUrl + '/additem',
@@ -188,11 +188,9 @@ WildRydes.map = WildRydes.map || {};
                 score: score
             }),
             contentType: 'application/json',
-            success: function(data) {
+            success: function() {
                 //log the data
                 console.log('success in adding new data');
-                console.log(data);
-                // when the data is returned, display the items
                 getItems();
             }
         });
