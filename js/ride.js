@@ -96,7 +96,7 @@ WildRydes.map = WildRydes.map || {};
                 makeItemEditable(li);
             };
             li.appendChild(editButton);
-            li.value = JSON.stringify(json[i]);
+            li.title_lowercase = json[i].title.toLowerCase();
         }
     }
 
@@ -198,10 +198,10 @@ WildRydes.map = WildRydes.map || {};
 
     //function to delete selected item from the list
     function deleteItem(li) {
-        var original_json = li.value;
+        var title_lowercase = li.title_lowercase;
         // use jquery ajax to delete the item with API endpoint _config.api.invokeUrl + '/deleteitem',
         console.log('Deleting item');
-        console.log(original_json);
+        console.log(title_lowercase);
 
         $.ajax({
             method: 'DELETE',
@@ -210,7 +210,9 @@ WildRydes.map = WildRydes.map || {};
                 Authorization: authToken
             },
             data: JSON.stringify({
-                original_json: original_json
+                original_json: {
+                    'title_lowercase': title_lowercase
+                }
             }),
             contentType: 'application/json',
             success: function() {
