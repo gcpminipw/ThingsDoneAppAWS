@@ -57,6 +57,7 @@ WildRydes.map = WildRydes.map || {};
     // use jquery ajax to get the items from API endpoint _config.api.invokeUrl + '/getallitems',
     // using the authToken
     function getItems() {
+        console.log("getting all items");
         $.ajax({
             method: 'GET',
             url: _config.api.invokeUrl + '/getallitems',
@@ -119,10 +120,7 @@ WildRydes.map = WildRydes.map || {};
         // // thingsdoneapp
         // $('#search_button').click(searchitems);
         $('#additem_button').click(addItem);
-        $('#refresh_button').click(function(){
-            alert("The paragraph was clicked.");
-            getItems();
-        });
+        $('#refresh_button').click(getItems);
         // get the list of items from the server
         console.log("getting items");
         getItems();
