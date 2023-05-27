@@ -53,6 +53,57 @@ WildRydes.map = WildRydes.map || {};
         });
     }
 
+    // function to display items in the list from json
+    // the html list has the id "items"
+    function displayItems(json) {
+        // get the list of items
+        var items = document.getElementById("items");
+        // clear the list
+        items.innerHTML = "";
+        // for each item in the json
+        for (var i = 0; i < json.length; i++) {
+            // create a new list item with the item id as the id
+            var li = document.createElement("li");
+            li.id = json[i].id;
+            // add the item to the list
+            items.appendChild(li);
+            // add the title, comment and score to the list item
+            li.innerHTML = json[i].title + " " + json[i].comment + " " + json[i].score;
+            // add a delete button to the list item
+            var deleteButton = document.createElement("button");
+            deleteButton.innerHTML = "Delete";
+            deleteButton.onclick = function() {
+                deleteItem(li);
+            };
+            li.appendChild(deleteButton);
+            // add an edit button to the list item
+            var editButton = document.createElement("button");
+            editButton.innerHTML = "Edit";
+            editButton.onclick = function() {
+                makeItemEditable(li);
+            };
+            li.appendChild(editButton);
+        }
+    }
+
+    // function to get the list of items from the server
+    function getItems() {
+        // use jquery ajax to get the items from API endpoint _config.api.invokeUrl + '/getallitems',
+        // using the authToken
+        $.ajax({
+            method: 'GET',
+            url: _config.api.invokeUrl + '/getallitems',
+            headers: {
+                Authorization: authToken
+            },
+            contentType: 'application/json',
+            success: function(data) {
+                // when the data is returned, display the items
+                displayItems(data);
+            }
+        });
+    }
+
     // Register click handler for #request button
     $(function onDocReady() {
         $('#request').click(handleRequestClick);
@@ -110,58 +161,8 @@ WildRydes.map = WildRydes.map || {};
         $('#updates').append($('<li>' + text + '</li>'));
     }
 
-    // // functions related to thingsdoneapp
 
-    // function to display items in the list from json
-    // the html list has the id "items"
-    function displayItems(json) {
-        // get the list of items
-        var items = document.getElementById("items");
-        // clear the list
-        items.innerHTML = "";
-        // for each item in the json
-        for (var i = 0; i < json.length; i++) {
-            // create a new list item with the item id as the id
-            var li = document.createElement("li");
-            li.id = json[i].id;
-            // add the item to the list
-            items.appendChild(li);
-            // add the title, comment and score to the list item
-            li.innerHTML = json[i].title + " " + json[i].comment + " " + json[i].score;
-            // add a delete button to the list item
-            var deleteButton = document.createElement("button");
-            deleteButton.innerHTML = "Delete";
-            deleteButton.onclick = function() {
-                deleteItem(li);
-            };
-            li.appendChild(deleteButton);
-            // add an edit button to the list item
-            var editButton = document.createElement("button");
-            editButton.innerHTML = "Edit";
-            editButton.onclick = function() {
-                makeItemEditable(li);
-            };
-            li.appendChild(editButton);
-        }
-    }
 
-    // function to get the list of items from the server
-    function getItems() {
-        // use jquery ajax to get the items from API endpoint _config.api.invokeUrl + '/getallitems',
-        // using the authToken
-        $.ajax({
-            method: 'GET',
-            url: _config.api.invokeUrl + '/getallitems',
-            headers: {
-                Authorization: authToken
-            },
-            contentType: 'application/json',
-            success: function(data) {
-                // when the data is returned, display the items
-                displayItems(data);
-            }
-        });
-    }
     // function to add an item to the list
     function addItem() {
         // get the title, comment and score from the html form
