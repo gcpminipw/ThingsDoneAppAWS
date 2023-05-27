@@ -53,30 +53,43 @@ WildRydes.map = WildRydes.map || {};
         });
     }
 
+    // function to get the list of items from the server
+    // use jquery ajax to get the items from API endpoint _config.api.invokeUrl + '/getallitems',
+    // using the authToken
+    function getItems() {
+        $.ajax({
+            method: 'GET',
+            url: _config.api.invokeUrl + '/getallitems',
+            headers: {
+                Authorization: authToken
+            },
+            contentType: 'application/json',
+            success: displayItems,
+            error: function ajaxError(jqXHR, textStatus, errorThrown) {
+                console.error('Error getting items: ', textStatus, ', Details: ', errorThrown);
+                console.error('Response: ', jqXHR.responseText);
+                alert('An error occured when getting your items:\n' + jqXHR.responseText);
+            }
+        });
+    }
+
     // function to display items in the list from json
     // the html list has the id "items"
     function displayItems(json) {
-        // get the list of items
+        console.log('Response received from API: ', json);
         var items = document.getElementById("items");
-        // clear the list
         items.innerHTML = "";
-        // for each item in the json
         for (var i = 0; i < json.length; i++) {
-            // create a new list item with the item id as the id
             var li = document.createElement("li");
             li.id = json[i].id;
-            // add the item to the list
             items.appendChild(li);
-            // add the title, comment and score to the list item
             li.innerHTML = json[i].title + " " + json[i].comment + " " + json[i].score;
-            // add a delete button to the list item
             var deleteButton = document.createElement("button");
             deleteButton.innerHTML = "Delete";
             deleteButton.onclick = function() {
                 deleteItem(li);
             };
             li.appendChild(deleteButton);
-            // add an edit button to the list item
             var editButton = document.createElement("button");
             editButton.innerHTML = "Edit";
             editButton.onclick = function() {
@@ -86,23 +99,6 @@ WildRydes.map = WildRydes.map || {};
         }
     }
 
-    // function to get the list of items from the server
-    function getItems() {
-        // use jquery ajax to get the items from API endpoint _config.api.invokeUrl + '/getallitems',
-        // using the authToken
-        $.ajax({
-            method: 'GET',
-            url: _config.api.invokeUrl + '/getallitems',
-            headers: {
-                Authorization: authToken
-            },
-            contentType: 'application/json',
-            success: function(data) {
-                // when the data is returned, display the items
-                displayItems(data);
-            }
-        });
-    }
 
     // Register click handler for #request button
     $(function onDocReady() {
@@ -121,8 +117,9 @@ WildRydes.map = WildRydes.map || {};
         }
         
         // // thingsdoneapp
-        $('#additem').click(addItem);
-        $('#getitems').click(getItems);
+        // $('#search_button').click(searchitems);
+        $('#additem_button').click(addItem);
+        $('#refresh_button').click(getItems);
         // get the list of items from the server
         console.log("getting items");
         getItems();
