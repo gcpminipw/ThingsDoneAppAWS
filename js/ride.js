@@ -97,6 +97,7 @@ WildRydes.map = WildRydes.map || {};
                 makeItemEditable(li);
             };
             li.appendChild(editButton);
+            li.value = json[i];
         }
     }
 
@@ -191,6 +192,30 @@ WildRydes.map = WildRydes.map || {};
             success: function() {
                 //log the data
                 console.log('success in adding new data');
+                getItems();
+            }
+        });
+    }
+
+    //function to delete selected item from the list
+    function deleteItem(li) {
+        var original_json = li.value;
+        // use jquery ajax to delete the item with API endpoint _config.api.invokeUrl + '/deleteitem',
+        console.log('Deleting item');
+        console.log(original_json);
+
+        $.ajax({
+            method: 'DELETE',
+            url: _config.api.invokeUrl + '/deleteitem',
+            headers: {
+                Authorization: authToken
+            },
+            data: JSON.stringify({
+                original_json: original_json
+            }),
+            contentType: 'application/json',
+            success: function() {
+                console.log('success in deleting data');
                 getItems();
             }
         });
