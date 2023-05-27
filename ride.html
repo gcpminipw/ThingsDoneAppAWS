@@ -17,40 +17,7 @@
     <link rel="stylesheet" href="/css/ride.css">
     <link rel="stylesheet" href="/css/message.css">
 </head>
-<script>    
-    // function to display items
-    function displayItems(json) {
-        // get the list of items
-        var items = document.getElementById("items");
-        // clear the list
-        items.innerHTML = "";
-        // for each item in the json
-        for (var i = 0; i < json.length; i++) {
-            // create a new list item
-            var li = document.createElement("li");
-            // add the item to the list
-            items.appendChild(li);
-            // add the title, comment and score to the list item
-            li.innerHTML = json[i].title + " " + json[i].comment + " " + json[i].score;
-            // add a delete button to the list item
-            var deleteButton = document.createElement("button");
-            deleteButton.innerHTML = "Delete";
-            deleteButton.onclick = function() {
-                deleteItem(json[i].id);
-            };
-            li.appendChild(deleteButton);
-            // add an edit button to the list item
-            var editButton = document.createElement("button");
-            editButton.innerHTML = "Edit";
-            editButton.onclick = function() {
-                makeItemEditable(json[i].id);
-            };
-            li.appendChild(editButton);
-        }
-    }
-</script>
 <body>
-
     <div class="info panel panel-default">
         <div class="panel-heading">
             <button id="request" class="btn btn-primary" disabled="disabled">Set pickup</button>
@@ -96,7 +63,7 @@
         </div>
     </div>
 
-        <div id="thingsdoneapp">
+    <div id="thingsdoneapp">
         <h1>Things Done App</h1>
         <p>Things Done App</p>
         
@@ -122,7 +89,7 @@
         <h2>Items</h2>
         <ul id="items"></ul>
     </div>
-    
+
     <div id="main">
         <div id="map">
         </div>
