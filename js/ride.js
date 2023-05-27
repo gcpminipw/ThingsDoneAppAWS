@@ -121,7 +121,8 @@ WildRydes.map = WildRydes.map || {};
         }
         
         // // thingsdoneapp
-
+        $('#additem').click(addItem);
+        $('#getitems').click(getItems);
         // get the list of items from the server
         getItems();
     });
