@@ -82,7 +82,6 @@ WildRydes.map = WildRydes.map || {};
         items.innerHTML = "";
         for (var i = 0; i < json.length; i++) {
             var li = document.createElement("li");
-            li.id = json[i].id;
             items.appendChild(li);
             li.innerHTML = json[i].title + " " + json[i].comment + " " + json[i].score;
             var deleteButton = document.createElement("button");
@@ -97,7 +96,7 @@ WildRydes.map = WildRydes.map || {};
                 makeItemEditable(li);
             };
             li.appendChild(editButton);
-            li.value = json[i];
+            li.value = JSON.stringify(json[i]);
         }
     }
 
