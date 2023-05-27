@@ -17,7 +17,38 @@
     <link rel="stylesheet" href="/css/ride.css">
     <link rel="stylesheet" href="/css/message.css">
 </head>
-
+<script>    
+    // function to display items
+    function displayItems(json) {
+        // get the list of items
+        var items = document.getElementById("items");
+        // clear the list
+        items.innerHTML = "";
+        // for each item in the json
+        for (var i = 0; i < json.length; i++) {
+            // create a new list item
+            var li = document.createElement("li");
+            // add the item to the list
+            items.appendChild(li);
+            // add the title, comment and score to the list item
+            li.innerHTML = json[i].title + " " + json[i].comment + " " + json[i].score;
+            // add a delete button to the list item
+            var deleteButton = document.createElement("button");
+            deleteButton.innerHTML = "Delete";
+            deleteButton.onclick = function() {
+                deleteItem(json[i].id);
+            };
+            li.appendChild(deleteButton);
+            // add an edit button to the list item
+            var editButton = document.createElement("button");
+            editButton.innerHTML = "Edit";
+            editButton.onclick = function() {
+                makeItemEditable(json[i].id);
+            };
+            li.appendChild(editButton);
+        }
+    }
+</script>
 <body>
 
     <div class="info panel panel-default">
@@ -65,6 +96,33 @@
         </div>
     </div>
 
+        <div id="thingsdoneapp">
+        <h1>Things Done App</h1>
+        <p>Things Done App</p>
+        
+        <br>
+        <h2>Search</h2>
+        <input type="text" id="searchText" name="searchText" value="Search">
+        <button type="button" onclick="searchForItems()">Search</button>
+        <br>
+    
+        <!-- create 3 text fields called 'title', 'comment' and 'score' -->
+        <!-- with a button 'add' next to it that invokes 'addItem()' -->
+        <h2>Add</h2>
+        <input type="text" id="title" name="title" value="Title">
+        <input type="text" id="comment" name="comment" value="Comment">
+        <input type="text" id="score" name="score" value="Score">
+        <button type="button" onclick="addItem()">Add</button>
+        <br>
+    
+        <!-- add an empty list of items which will be filled by js function displayItems(json) -->
+        <!-- next to each item add 2 buttons: delete and edit -->
+        <!-- make the delete button invoke 'deleteItem()' and edit invoke 'makeItemEditable()' -->
+        <br>
+        <h2>Items</h2>
+        <ul id="items"></ul>
+    </div>
+    
     <div id="main">
         <div id="map">
         </div>
