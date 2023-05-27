@@ -248,5 +248,38 @@ WildRydes.map = WildRydes.map || {};
         });
     }
 
+    //function to make a list item editable
+    function makeItemEditable(li) {
+        // get the title, comment and score from the html form, proof of concept
+        var title = li.title; //cannot change
+        var comment = document.getElementById("comment").value;
+        var score = document.getElementById("score").value;
+        // use jquery ajax to put the item to API endpoint _config.api.invokeUrl + '/updateitem',
+        // using the authToken
+        console.log('Editing item :' + title);
+        //print item to be edited
+        console.log('Comment: ' + comment);
+        console.log('Score: ' + score);
+        $.ajax({
+            method: 'PUT',
+            url: _config.api.invokeUrl + '/updateitem',
+            headers: {
+                Authorization: authToken
+            },
+            data: JSON.stringify({
+                title: title,
+                comment: comment,
+                score: score
+            }),
+            contentType: 'application/json',
+            success: function() {
+                //log the data
+                console.log('success in editing data');
+                getItems();
+            }
+        });
+    }
+
+
 
 }(jQuery));
