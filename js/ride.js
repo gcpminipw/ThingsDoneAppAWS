@@ -124,6 +124,7 @@ WildRydes.map = WildRydes.map || {};
         $('#additem').click(addItem);
         $('#getitems').click(getItems);
         // get the list of items from the server
+        console.log("getting items");
         getItems();
     });
 

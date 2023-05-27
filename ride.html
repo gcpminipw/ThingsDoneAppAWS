@@ -70,7 +70,7 @@
         <br>
         <h2>Search</h2>
         <input type="text" id="searchText" name="searchText" value="Search">
-        <button type="button" onclick="searchForItems()">Search</button>
+        <button type="button">Search</button>
         <br>
     
         <!-- create 3 text fields called 'title', 'comment' and 'score' -->
@@ -79,7 +79,7 @@
         <input type="text" id="title" name="title" value="Title">
         <input type="text" id="comment" name="comment" value="Comment">
         <input type="text" id="score" name="score" value="Score">
-        <button type="button" onclick="addItem()" id="additem_button">Add</button>
+        <button type="button" id="additem_button">Add</button>
         <br>
     
         <!-- add an empty list of items which will be filled by js function displayItems(json) -->
@@ -88,7 +88,7 @@
         <br>
         <h2>Items</h2>
         <!-- a button to refresh by invoking getItems() -->
-        <button type="button" onclick="getItems()" id="'refresh_button">Refresh</button>
+        <button type="button" id="'refresh_button">Refresh</button>
         <ul id="items"></ul>
     </div>
 
