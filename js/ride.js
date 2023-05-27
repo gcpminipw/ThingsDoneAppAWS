@@ -68,6 +68,11 @@ WildRydes.map = WildRydes.map || {};
         if (!_config.api.invokeUrl) {
             $('#noApiMessage').show();
         }
+        
+        // // thingsdoneapp
+
+        // get the list of items from the server
+        getItems();
     });
 
     function handlePickupChanged() {
