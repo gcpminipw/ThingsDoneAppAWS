@@ -210,9 +210,7 @@ WildRydes.map = WildRydes.map || {};
                 Authorization: authToken
             },
             data: JSON.stringify({
-                original_json: {
                     'title': title
-                }
             }),
             contentType: 'application/json',
             success: function() {
