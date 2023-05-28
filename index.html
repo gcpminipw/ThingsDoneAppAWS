@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-    <title>Wild Rydes</title>
+    <title>Journify</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
@@ -13,65 +13,26 @@
     <meta name="author" content="">
 
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/journify.css">
     <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
-    <link rel="stylesheet" href="/css/ride.css">
-    <link rel="stylesheet" href="/css/message.css">
 </head>
 
 <body>
-    <div class="info panel panel-default">
-        <div class="panel-heading">
-            <button id="request" class="btn btn-primary" disabled="disabled">Set pickup</button>
-            <div class="dropdown pull-right">
-                <button id="accountLink" class="btn" type="button" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                    Account <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="accountLink">
-                    <li><a id="signOut" href="#">Sign out</a></li>
-                </ul>
+    <main class="d-flex flex-nowrap" style="height: 100vh;" data-bs-theme="dark">
+        <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary" style="width: 340px;">
+            <a href="#"
+                class="d-flex align-items-center flex-shrink-0 p-3 py-2 link-body-emphasis text-decoration-none border-bottom">
+                <span class="fs-3 fw-semibold">Journify</span>
+            </a>
+            <div
+                class="d-flex w-100 align-items-center justify-content-between fs-5 fw-semibold border-bottom px-3 py-2">
+                <span class="text-light">Your entries</span>
+                <a href="#" class="text-body-secondary link-muted text-decoration-none"><small>New</small></a>
             </div>
+            <div id="owned" class="list-group list-group-flush border-bottom scrollarea"></div>
         </div>
-        <div class="panel-body">
-            <ol id="updates">
-                <li>Welcome! Click the map to set your pickup location.</li>
-            </ol>
-        </div>
-    </div>
-
-    <div id="thingsdoneapp">
-        <h1>Things Done App</h1>
-        <p>Things Done App</p>
-
-        <br>
-        <h2>Search</h2>
-        <input type="text" id="search_title" name="searchText" value="Search">
-        <button type="button" id="search_button">Search</button>
-        <br>
-
-        <!-- create 3 text fields called 'title', 'comment' and 'score' -->
-        <!-- with a button 'add' next to it that invokes 'addItem()' -->
-        <h2>Add</h2>
-        Or edit - proof of concept to edit an item: write comment and score, then click edit button.
-        <input type="text" id="title" name="title" value="Title">
-        <input type="text" id="comment" name="comment" value="Comment">
-        <input type="text" id="score" name="score" value="Score">
-        <button type="button" id="additem_button">Add</button>
-        <br>
-
-        <!-- add an empty list of items which will be filled by js function displayItems(json) -->
-        <!-- next to each item add 2 buttons: delete and edit -->
-        <!-- make the delete button invoke 'deleteItem()' and edit invoke 'makeItemEditable()' -->
-        <br>
-        <h2>Items</h2>
-        Note: poor html and js skill resulted in buttons delete and edit to always affect the last item of the list.
-        <!-- a button to refresh by invoking getItems() -->
-        <button type="button" id="refresh_button">Refresh</button>
-        <ul id="items"></ul>
-    </div>
-
+    </main>
     <script src="js/vendor/jquery-3.1.0.js"></script>
     <script src="js/vendor/bootstrap.min.js"></script>
     <script src="js/vendor/aws-cognito-sdk.min.js"></script>
@@ -79,7 +40,6 @@
     <script src="https://js.arcgis.com/4.6/"></script>
     <script src="js/config.js"></script>
     <script src="js/cognito-auth.js"></script>
-    <script src="js/esri-map.js"></script>
     <script src="js/core.js"></script>
     <script src="js/controller-mockup.js"></script>
     <script src="js/view.js"></script>

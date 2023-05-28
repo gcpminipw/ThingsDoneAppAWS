@@ -6,6 +6,8 @@
     notes.delete = function (uid) { delete db[uid]; callbacks.draw() }
 
     notes.new('Example', 'Example note with example description', 5)
-    notes.new('Example 2', 'Completely different example', 4)
+    setTimeout(() => {
+        notes.new('Example 2', 'Completely different example', 4)
+    }, 1000)
 
 }(jQuery));

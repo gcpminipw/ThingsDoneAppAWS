@@ -1,0 +1,7 @@
+.scrollarea {
+    overflow: auto;
+}
+
+.link-muted:hover {
+    color: RGBA(var(--bs-emphasis-color-rgb), var(--bs-link-opacity, .75)) !important;
+}
