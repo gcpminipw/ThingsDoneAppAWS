@@ -74,7 +74,7 @@ WildRydes.map = WildRydes.map || {};
         });
     }
 
-    
+
     //function to search for items with a given title
     function searchitems() {
         var title = document.getElementById("search_title").value;
@@ -111,13 +111,13 @@ WildRydes.map = WildRydes.map || {};
             li.innerHTML = json[i].title + " " + json[i].comment + " " + json[i].score;
             var deleteButton = document.createElement("button");
             deleteButton.innerHTML = "Delete";
-            deleteButton.onclick = function() {
+            deleteButton.onclick = function () {
                 deleteItem(li);
             };
             li.appendChild(deleteButton);
             var editButton = document.createElement("button");
             editButton.innerHTML = "Edit";
-            editButton.onclick = function() {
+            editButton.onclick = function () {
                 makeItemEditable(li);
             };
             li.appendChild(editButton);
@@ -141,7 +141,7 @@ WildRydes.map = WildRydes.map || {};
         if (!_config.api.invokeUrl) {
             $('#noApiMessage').show();
         }
-        
+
         // // thingsdoneapp
         $('#search_button').click(searchitems);
         $('#additem_button').click(addItem);
@@ -188,96 +188,7 @@ WildRydes.map = WildRydes.map || {};
 
 
 
-    // function to add an item to the list
-    function addItem() {
-        // get the title, comment and score from the html form
-        var title = document.getElementById("title").value;
-        var comment = document.getElementById("comment").value;
-        var score = document.getElementById("score").value;
-        // use jquery ajax to post the item to API endpoint _config.api.invokeUrl + '/additem',
-        // using the authToken
-        console.log('Adding item');
-        //print item to be added
-        console.log('Title: ' + title);
-        console.log('Comment: ' + comment);
-        console.log('Score: ' + score);
-        $.ajax({
-            method: 'POST',
-            url: _config.api.invokeUrl + '/additem',
-            headers: {
-                Authorization: authToken
-            },
-            data: JSON.stringify({
-                title: title,
-                comment: comment,
-                score: score
-            }),
-            contentType: 'application/json',
-            success: function() {
-                //log the data
-                console.log('success in adding new data');
-                getItems();
-            }
-        });
-    }
 
-    //function to delete selected item from the list
-    function deleteItem(li) {
-        var title = li.title;
-        // use jquery ajax to delete the item with API endpoint _config.api.invokeUrl + '/deleteitem',
-        console.log('Deleting item');
-        console.log(title);
-
-        $.ajax({
-            method: 'DELETE',
-            url: _config.api.invokeUrl + '/deleteitem',
-            headers: {
-                Authorization: authToken
-            },
-            data: JSON.stringify({
-                    'title': title
-            }),
-            contentType: 'application/json',
-            success: function() {
-                console.log('success in deleting data');
-                getItems();
-            }
-        });
-    }
-
-
-
-    //function to make a list item editable
-    function makeItemEditable(li) {
-        // get the title, comment and score from the html form, proof of concept
-        var title = li.title; //cannot change
-        var comment = document.getElementById("comment").value;
-        var score = document.getElementById("score").value;
-        // use jquery ajax to put the item to API endpoint _config.api.invokeUrl + '/updateitem',
-        // using the authToken
-        console.log('Editing item :' + title);
-        //print item to be edited
-        console.log('Comment: ' + comment);
-        console.log('Score: ' + score);
-        $.ajax({
-            method: 'PUT',
-            url: _config.api.invokeUrl + '/updateitem',
-            headers: {
-                Authorization: authToken
-            },
-            data: JSON.stringify({
-                'title': title,
-                'comment': comment,
-                'score': parseInt(score)
-            }),
-            contentType: 'application/json',
-            success: function() {
-                //log the data
-                console.log('success in editing data');
-                getItems();
-            }
-        });
-    }
 
 
 
