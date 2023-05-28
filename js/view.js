@@ -1,35 +1,96 @@
 (function scopeWrapper($) {
     callbacks.draw = async function () {
         const data = await notes.get()
+        $("body").removeClass('during-edit')
         fillList($('#owned'), data)
     }
 
+    $(function onDocReady() {
+        callbacks.draw()
+        $('#new').click(function () { makeEditable(addEntry({}, $('#owned'))) })
+    });
+
     function addEntry(entry, $parent) {
         const $entry = $(`
-            <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
+            <div class="list-group-item list-group-item-action py-3 lh-sm" ondragstart="return false;" ondrop="return false;">
                 <div class="d-flex w-100 align-items-center justify-content-between">
                     <strong class="mb-1"></strong>
                     <small class="text-body-secondary"></small>
                 </div>
-                <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and date.
+                <div class="d-flex w-100 align-items-center justify-content-between">
+                    <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and date.</div>
+                    <svg class="icon-edit" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                    </svg>
                 </div>
-            </a>
+                <div class="entry-buttons d-flex w-100 align-items-center justify-content-around">
+                    <a class="small fw-bold link-body-emphasis text-decoration-none">Save</a>
+                    <a class="small fw-bold link-body-emphasis text-decoration-none">Cancel</a>
+                    <a class="small fw-bold link-body-emphasis text-decoration-none">Delete</a>
+                </div>
+            </div>
         `)
-        $entry.find('strong').text(entry.title)
-        $entry.find('small').text(entry.score)
-        $entry.find('div.mb-1').text(entry.comment)
-        $entry.id = entry.uid
+        $entry.find('strong').text(entry.title || "")
+        $entry.find('small').text(entry.score || "")
+        $entry.find('div.mb-1').text(entry.comment || "")
+        if (entry.uid) $entry.id = entry.uid
+        else $entry.addClass('new')
+        $entry.find('.icon-edit').on('click', () => makeEditable($entry))
+        $entry.find('.entry-buttons a:nth-child(1)').on('click', () => makeUneditable($entry, true))
+        $entry.find('.entry-buttons a:nth-child(2)').on('click', () => makeUneditable($entry, false))
+        $entry.find('.entry-buttons a:nth-child(3)').on('click', () => notes.delete($entry.id))
 
-        $parent.append($entry)
+        $parent.prepend($entry)
+        return $entry
     }
 
     function fillList($parent, data) {
         $parent.empty()
-        data.sort((a, b) => b.uid - a.uid).forEach(entry => addEntry(entry, $parent))
+        data.sort((a, b) => a.uid - b.uid).forEach(entry => addEntry(entry, $parent))
     }
 
+    function makeEditable($entry) {
+        $entry.find('strong').attr('contenteditable', true)
+        $entry.find('strong').attr('data-original', $entry.find('strong').text())
+        $entry.find('div.mb-1').attr('contenteditable', true)
+        $entry.find('div.mb-1').attr('data-original', $entry.find('div.mb-1').text())
+        $entry.addClass('editable')
+        $("body").addClass('during-edit')
+    }
 
-    $(function onDocReady() {
-        callbacks.draw()
-    });
+    function makeUneditable($entry, save) {
+        const uid = $entry.id
+        if (save) {
+            const $title = $entry.find('strong')
+            const title = $title.text()
+            if (!title) {
+                $title.removeClass('error')
+                setTimeout(() => $title.addClass('error'), 30)
+                return
+            }
+
+            const comment = $entry.find('div.mb-1').text()
+            const score = $entry.find('small').text()
+            if (uid === undefined) {
+                notes.new(title, comment, score)
+            } else {
+                notes.update(uid, title, comment, score)
+            }
+        } else {
+            if (uid === undefined) {
+                $entry.remove()
+            } else {
+                $entry.find('strong').text($entry.find('strong').attr('data-original'))
+                $entry.find('div.mb-1').text($entry.find('div.mb-1').attr('data-original'))
+                $entry.find('strong').attr('data-original', '')
+                $entry.find('div.mb-1').attr('data-original', '')
+            }
+        }
+
+        $entry.find('strong').attr('contenteditable', false)
+        $entry.find('div.mb-1').attr('contenteditable', false)
+        $entry.removeClass('editable')
+        $("body").removeClass('during-edit')
+    }
+
 }(jQuery));

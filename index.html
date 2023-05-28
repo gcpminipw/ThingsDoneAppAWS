@@ -21,14 +21,14 @@
 <body>
     <main class="d-flex flex-nowrap" style="height: 100vh;" data-bs-theme="dark">
         <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary" style="width: 340px;">
-            <a href="#"
+            <a href="#" ondragstart="return false;" ondrop="return false;"
                 class="d-flex align-items-center flex-shrink-0 p-3 py-2 link-body-emphasis text-decoration-none border-bottom">
                 <span class="fs-3 fw-semibold">Journify</span>
             </a>
             <div
                 class="d-flex w-100 align-items-center justify-content-between fs-5 fw-semibold border-bottom px-3 py-2">
                 <span class="text-light">Your entries</span>
-                <a href="#" class="text-body-secondary link-muted text-decoration-none"><small>New</small></a>
+                <a id="new" href="#" class="text-body-secondary link-muted text-decoration-none"><small>New</small></a>
             </div>
             <div id="owned" class="list-group list-group-flush border-bottom scrollarea"></div>
         </div>

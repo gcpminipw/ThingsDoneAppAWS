@@ -5,3 +5,70 @@
 .link-muted:hover {
     color: RGBA(var(--bs-emphasis-color-rgb), var(--bs-link-opacity, .75)) !important;
 }
+
+.editable *[contenteditable] {
+    background-color: rgba(0, 0, 0, 0.25);
+    padding-left: 3px;
+    padding-right: 3px;
+    border-radius: 4px;
+    margin-left: -3px;
+    margin-right: -3px;
+}
+
+.list-group-item .icon-edit {
+    opacity: 0;
+    cursor: pointer;
+}
+
+.list-group-item:hover .icon-edit {
+    opacity: 0.3;
+}
+
+.list-group-item .icon-edit:hover {
+    opacity: 0.8;
+}
+
+.during-edit .list-group-item .icon-edit {
+    display: none;
+}
+
+.during-edit .list-group-item.editable .icon-edit {
+    display: inline-block;
+    opacity: 0.8;
+    cursor: default;
+}
+
+.entry-buttons {
+    margin-bottom: -0.4rem;
+    margin-top: 0.2rem;
+}
+
+.list-group-item:not(.editable) .entry-buttons {
+    display: none !important;
+}
+
+.list-group-item.editable.new .entry-buttons *:nth-child(3) {
+    display: none !important;
+}
+
+.entry-buttons a {
+    cursor: pointer;
+}
+
+.editable strong {
+    min-width: 5rem;
+}
+
+.error {
+    animation: error-blink 2.5s forwards;
+}
+
+@keyframes error-blink {
+    from {
+        background-color: rgba(var(--bs-danger-rgb), var(--bs-bg-opacity));
+    }
+
+    to {
+        background-color: rgba(0, 0, 0, 0.25);
+    }
+}
