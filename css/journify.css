@@ -117,6 +117,11 @@ body {
     display: none;
 }
 
+#rated .list-group {
+    min-width: 220px;
+    position: sticky;
+}
+
 .font-italic {
     font-style: italic;
 }

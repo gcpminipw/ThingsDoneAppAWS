@@ -9,6 +9,7 @@
 
     callbacks.draw = async function () {
         const data = await notes.get()
+        console.log(data)
         $("body").removeClass('during-edit')
         fillList($('#owned'), data)
         for (let i in scoreMapping) {
@@ -22,11 +23,18 @@
             $('#rated').prepend(`
             <div class="col" style="max-width: 380px">
                 <div class="fs-5 fw-semibold text-light text-center py-2 pt-4 border-bottom">${rating}</div>
-                <div id="rate-${i}" class="list-group list-group-flush border-bottom scrollarea" style="min-width: 220px"></div>
+                <div id="rate-${i}" class="list-group list-group-flush border-bottom scrollarea"></div>
             </div>`)
         }
         callbacks.draw()
         $('#new').click(function () { makeEditable(addEntry({}, $('#owned'))) })
+        setInterval(() => {
+            for (let i in scoreMapping) {
+                $(`#rate-${i}`).css({
+                    top: `calc(100vh - ${$(`#rate-${i}`).outerHeight()}px - 1.5rem)`
+                })
+            }
+        }, 200)
     });
 
     function addEntry(entry, $parent) {
@@ -36,11 +44,11 @@
                     <strong class="mb-1"></strong>
                     <small class="text-body-secondary">
                         <select disabled data="pull-right" data-style="text-right">
-                            <option value="1">Bad</option>
-                            <option value="2">Meh</option>
-                            <option value="3">Ok</option>
-                            <option value="4">Good</option>
                             <option value="5">Awesome</option>
+                            <option value="4">Good</option>
+                            <option value="3">Ok</option>
+                            <option value="2">Meh</option>
+                            <option value="1">Bad</option>
                         </select>
                     </small>
                 </div>
