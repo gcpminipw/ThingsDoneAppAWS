@@ -28,7 +28,8 @@
     opacity: 0.8;
 }
 
-.during-edit .list-group-item .icon-edit {
+.during-edit .list-group-item .icon-edit,
+.list-group-item:not(.owned) .icon-edit {
     display: none;
 }
 

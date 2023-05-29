@@ -9,9 +9,8 @@
 
     callbacks.draw = async function () {
         const data = await notes.get()
-        console.log(data)
         $("body").removeClass('during-edit')
-        fillList($('#owned'), data)
+        fillList($('#owned'), data.filter(n => n.username == notes.user()))
         for (let i in scoreMapping) {
             fillList($(`#rate-${i}`), data.filter(n => n.score == i))
         }
@@ -68,8 +67,10 @@
         $entry.find('strong').text(entry.title || "")
         $entry.find('div.mb-1').text(entry.comment || "")
         $entry.find('select').val(entry.score || 3)
-        if (entry.uid) $entry.id = entry.uid
+        if (entry.timestamp_created) $entry.id = entry.timestamp_created
         else $entry.addClass('new')
+        if (entry.username == notes.user()) $entry.addClass('owned')
+
         $entry.find('.icon-edit').on('click', () => makeEditable($entry))
         $entry.find('.entry-buttons a:nth-child(1)').on('click', () => makeUneditable($entry, true))
         $entry.find('.entry-buttons a:nth-child(2)').on('click', () => makeUneditable($entry, false))
@@ -82,7 +83,7 @@
     function fillList($parent, data) {
         $parent.empty()
         if (data.length == 0) $parent.append('<div class="list-group-item list-group-item-action py-3 lh-sm small text-center font-italic" style="filter: brightness(0.7)">No entries yet</div>')
-        else data.sort((a, b) => a.uid - b.uid).forEach(entry => addEntry(entry, $parent))
+        else data.sort((a, b) => a.timestamp_created - b.timestamp_created).forEach(entry => addEntry(entry, $parent))
     }
 
     function makeEditable($entry) {

@@ -1,8 +1,8 @@
 (function scopeWrapper($) {
     const db = {}
     notes.get = function (filter) { return Object.values(db).filter(n => !filter || n.title.indexOf(filter) != -1) }
-    notes.new = function (title, comment, score, user = notes.user()) { let now = Date.now(); db[now] = { title, comment, score, uid: now, timestamp_last_modified: now }; callbacks.draw() }
-    notes.update = function (uid, title, comment, score) { db[uid] = { title, comment, score, uid, timestamp_last_modified: Date.now() }; callbacks.draw() }
+    notes.new = function (title, comment, score, user = notes.user()) { let now = Date.now(); db[now] = { title, comment, score, timestamp_created: now, timestamp_last_modified: now, username: user }; callbacks.draw() }
+    notes.update = function (uid, title, comment, score) { db[uid] = { title, comment, score, uid, timestamp_last_modified: Date.now(), username: db[uid].username }; callbacks.draw() }
     notes.delete = function (uid) { delete db[uid]; callbacks.draw() }
     notes.user = function () { return "mockup-user" }
 
@@ -20,7 +20,8 @@
         const randomSentence = () => Array(Math.floor(Math.random() * 10) + 1).fill().map(() => randomWord()).join(' ')
         const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1)
 
-        notes.new(capitalize(randomWord()), capitalize(randomSentence()), Math.floor(Math.random() * 5) + 1)
+        const user = Math.random() > 0.5 ? [] : ['different-user']
+        notes.new(capitalize(randomWord()), capitalize(randomSentence()), Math.floor(Math.random() * 5) + 1, ...user)
 
         i++
         if (i > 120) clearInterval(inter)

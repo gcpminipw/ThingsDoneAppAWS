@@ -31,8 +31,6 @@ var Journify = window.Journify || {};
 
     Journify.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
         var cognitoUser = userPool.getCurrentUser();
-        Journify.username = cognitoUser.username;
-        console.log("User:", cognitoUser)
 
         if (cognitoUser) {
             cognitoUser.getSession(function sessionCallback(err, session) {
@@ -44,6 +42,7 @@ var Journify = window.Journify || {};
                     resolve(session.getIdToken().getJwtToken());
                 }
             });
+            Journify.username = cognitoUser.username;
         } else {
             resolve(null);
         }
