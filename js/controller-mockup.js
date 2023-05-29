@@ -23,6 +23,6 @@
 
         i++
         if (i > 60) clearInterval(inter)
-    }, 50)
+    }, 5)
 
 }(jQuery));

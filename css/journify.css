@@ -7,7 +7,7 @@
 }
 
 .editable *[contenteditable] {
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: #191c1f;
     padding-left: 3px;
     padding-right: 3px;
     border-radius: 4px;
@@ -51,6 +51,27 @@
     display: none !important;
 }
 
+.list-group-item select {
+    border: none;
+    text-align: right;
+    border-radius: 4px;
+    direction: rtl;
+    padding-right: 5px;
+    color: white;
+}
+
+.list-group-item:not(.editable) select {
+    background: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.list-group-item.editable select {
+    background-color: #191c1f;
+    cursor: pointer;
+}
+
 .entry-buttons a {
     cursor: pointer;
 }
@@ -60,7 +81,7 @@
 }
 
 .error {
-    animation: error-blink 2.5s forwards;
+    animation: error-blink 2.5s;
 }
 
 @keyframes error-blink {
@@ -69,7 +90,7 @@
     }
 
     to {
-        background-color: rgba(0, 0, 0, 0.25);
+        background-color: #191c1f;
     }
 }
 
@@ -92,7 +113,7 @@ body {
     background-color: black;
 }
 
-#rated .list-group-item small {
+#rated .list-group-item:not(.editable) small {
     display: none;
 }
 
