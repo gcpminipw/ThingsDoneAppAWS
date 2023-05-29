@@ -1,7 +1,7 @@
 var Journify = window.Journify || {};
 
 (function scopeWrapper($) {
-    notes.get = function (filter = "") { return makeApiCall('GET', `/entries`, { filter }) }
+    notes.get = function (filter = "") { return makeApiCall('GET', `/entries`, { filter }, false) }
     notes.new = function (title, comment, score) { makeApiCall('POST', `/entries`, { title, comment, score }).then(callbacks.draw) }
     notes.update = function (uid, title, comment, score) { makeApiCall('PUT', `/entries/${uid}`, { uid, title, comment, score }).then(callbacks.draw) }
     notes.delete = function (uid) { makeApiCall('DELETE', `/entries/${uid}`, {}).then(callbacks.draw) }
@@ -20,14 +20,12 @@ var Journify = window.Journify || {};
         window.location.href = '/signin.html';
     });
 
-    function makeApiCall(method, path, data) {
+    function makeApiCall(method, path, data, auth = true) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 method: method,
                 url: _config.api.invokeUrl + path,
-                headers: {
-                    Authorization: authToken
-                },
+                headers: auth ? { Authorization: authToken } : {},
                 data: data,
                 contentType: 'application/json',
                 success: resolve,

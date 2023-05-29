@@ -123,7 +123,7 @@ var Journify = window.Journify || {};
         signin(email, password,
             function signinSuccess() {
                 console.log('Successfully Logged In');
-                window.location.href = '';
+                window.location.href = '/';
             },
             function signinError(err) {
                 alert(err);
