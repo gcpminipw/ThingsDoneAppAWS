@@ -1,7 +1,7 @@
 var WildRydes = window.WildRydes || {};
 
 (function scopeWrapper($) {
-    notes.get = function (filter) { return makeApiCall('GET', `/entries`, {}) }
+    notes.get = function (filter = "") { return makeApiCall('GET', `/entries`, { filter }) }
     notes.new = function (title, comment, score) { makeApiCall('POST', `/entries`, { title, comment, score }).then(callbacks.draw) }
     notes.update = function (uid, title, comment, score) { makeApiCall('PUT', `/entries/${uid}`, { uid, title, comment, score }).then(callbacks.draw) }
     notes.delete = function (uid) { makeApiCall('DELETE', `/entries/${uid}`, {}).then(callbacks.draw) }
