@@ -5,9 +5,24 @@
     notes.update = function (uid, title, comment, score) { db[uid] = { title, comment, score, uid, timestamp_last_modified: Date.now() }; callbacks.draw() }
     notes.delete = function (uid) { delete db[uid]; callbacks.draw() }
 
-    notes.new('Example', 'Example note with example description', 5)
-    setTimeout(() => {
-        notes.new('Example 2', 'Completely different example', 4)
-    }, 1000)
+    // notes.new('Example', 'Example note with example description', 5)
+    // setTimeout(() => {
+    //     notes.new('Example 2', 'Completely different example', 4)
+    // }, 1000)
+
+    let i = 0
+    const inter = setInterval(() => {
+        const vowels = 'aeiou'
+        const consonants = 'bcdfgjklmnpstvwxz'
+        const randomString = (length, chars) => Array(length).fill().map(() => chars[Math.floor(Math.random() * chars.length)]).join('')
+        const randomWord = () => Array(Math.floor(Math.random() * 3) + 1).fill().map(() => randomString(1, consonants) + randomString(Math.floor(Math.random() * 1.5) + 1, vowels)).join("") + randomString(1, consonants + vowels)
+        const randomSentence = () => Array(Math.floor(Math.random() * 10) + 1).fill().map(() => randomWord()).join(' ')
+        const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1)
+
+        notes.new(capitalize(randomWord()), capitalize(randomSentence()), Math.floor(Math.random() * 5) + 1)
+
+        i++
+        if (i > 60) clearInterval(inter)
+    }, 50)
 
 }(jQuery));

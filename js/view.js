@@ -1,11 +1,30 @@
 (function scopeWrapper($) {
+    scoreMapping = {
+        "1": "Bad",
+        "2": "Meh",
+        "3": "Ok",
+        "4": "Good",
+        "5": "Awesome"
+    }
+
     callbacks.draw = async function () {
         const data = await notes.get()
         $("body").removeClass('during-edit')
         fillList($('#owned'), data)
+        for (let i in scoreMapping) {
+            fillList($(`#rate-${i}`), data.filter(n => n.score == i))
+        }
     }
 
     $(function onDocReady() {
+        for (let i in scoreMapping) {
+            const rating = scoreMapping[i]
+            $('#rated').prepend(`
+            <div class="col" style="max-width: 380px">
+                <div class="fs-5 fw-semibold text-light text-center py-2 pt-4 border-bottom">${rating}</div>
+                <div id="rate-${i}" class="list-group list-group-flush border-bottom scrollarea" style="min-width: 220px"></div>
+            </div>`)
+        }
         callbacks.draw()
         $('#new').click(function () { makeEditable(addEntry({}, $('#owned'))) })
     });
@@ -46,7 +65,8 @@
 
     function fillList($parent, data) {
         $parent.empty()
-        data.sort((a, b) => a.uid - b.uid).forEach(entry => addEntry(entry, $parent))
+        if (data.length == 0) $parent.append('<div class="list-group-item list-group-item-action py-3 lh-sm small text-center font-italic" style="filter: brightness(0.7)">No entries yet</div>')
+        else data.sort((a, b) => a.uid - b.uid).forEach(entry => addEntry(entry, $parent))
     }
 
     function makeEditable($entry) {
