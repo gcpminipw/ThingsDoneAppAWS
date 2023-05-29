@@ -13,8 +13,8 @@ var WildRydes = window.WildRydes || {};
     var userPool;
 
     if (!(_config.cognito.userPoolId &&
-          _config.cognito.userPoolClientId &&
-          _config.cognito.region)) {
+        _config.cognito.userPoolClientId &&
+        _config.cognito.region)) {
         $('#noCognitoMessage').show();
         return;
     }
@@ -121,7 +121,7 @@ var WildRydes = window.WildRydes || {};
         signin(email, password,
             function signinSuccess() {
                 console.log('Successfully Logged In');
-                window.location.href = 'ride.html';
+                window.location.href = '';
             },
             function signinError(err) {
                 alert(err);
