@@ -1,13 +1,10 @@
 var WildRydes = window.WildRydes || {};
 
 (function scopeWrapper($) {
-    // TODO @Iluvatar: change endpoint names to standard CRUD names
-    notes.get = function (filter) { return makeApiCall('GET', '/getallitems', {}) } // TODO @Iluvatar: merge "getallitems" and "getfilteritems"
-    notes.new = function (title, comment, score) { makeApiCall('POST', '/additem', { title, comment, score }).then(callbacks.draw) }
-    // notes.update = function (uid, title, comment, score) { makeApiCall('PUT', '/updateitem', { uid, title, comment, score }).then(callbacks.draw) }
-    notes.update = function (uid, title, comment, score) { throw 'Not implemented, update by uid is needed' } // TODO @Iluvatar: implement
-    // notes.delete = function (uid) { makeApiCall('DELETE', '/deleteitem', { uid }).then(callbacks.draw) }
-    notes.delete = function (uid) { throw 'Not implemented, deletion by uid is needed' } // TODO @Iluvatar: implement
+    notes.get = function (filter) { return makeApiCall('GET', $`/entries`, {}) }
+    notes.new = function (title, comment, score) { makeApiCall('POST', $`/entries`, { title, comment, score }).then(callbacks.draw) }
+    notes.update = function (uid, title, comment, score) { makeApiCall('PUT', $`/entries/${uid}`, { uid, title, comment, score }).then(callbacks.draw) }
+    notes.delete = function (uid) { makeApiCall('DELETE', $`/entries/${uid}`, {}).then(callbacks.draw) }
 
     var authToken;
     WildRydes.authToken.then(function setAuthToken(token) {
