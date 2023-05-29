@@ -8,6 +8,7 @@ var WildRydes = window.WildRydes || {};
 
     var authToken;
     WildRydes.authToken.then(function setAuthToken(token) {
+        console.log("Token: ", token)
         if (token) {
             authToken = token;
         } else {
