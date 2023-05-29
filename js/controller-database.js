@@ -27,7 +27,7 @@ var WildRydes = window.WildRydes || {};
                 headers: {
                     Authorization: authToken
                 },
-                data: JSON.stringify(data),
+                data: data,
                 contentType: 'application/json',
                 success: resolve,
                 error: reject
