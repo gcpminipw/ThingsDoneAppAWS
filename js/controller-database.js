@@ -33,7 +33,7 @@ var Journify = window.Journify || {};
                 data: method == "GET" ? data : JSON.stringify(data),
                 contentType: 'application/json',
                 success: resolve,
-                error: reject
+                error: onError
             });
         })
     }
