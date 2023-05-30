@@ -8,7 +8,7 @@
     }
 
     callbacks.draw = async function () {
-        const data = await notes.get()
+        const data = await notes.get($('#search-phrase').val())
         $("body").removeClass('during-edit')
         fillList($('#owned'), data.filter(n => n.username == notes.user()))
         for (let i in scoreMapping) {
@@ -21,12 +21,14 @@
             const rating = scoreMapping[i]
             $('#rated').prepend(`
             <div class="col" style="max-width: 380px">
-                <div class="fs-5 fw-semibold text-light text-center py-2 pt-4 border-bottom">${rating}</div>
+                <div class="fs-5 fw-semibold text-light text-center border-bottom entry-column-title">${rating}</div>
                 <div id="rate-${i}" class="list-group list-group-flush border-bottom scrollarea"></div>
             </div>`)
         }
         callbacks.draw()
         $('#new').click(function () { makeEditable(addEntry({}, $('#owned'))) })
+        $('#search-phrase').on('change', callbacks.draw)
+        $('#search-button').click(callbacks.draw)
         $('#logout-button').click(Journify.signOut)
         setInterval(() => {
             for (let i in scoreMapping) {

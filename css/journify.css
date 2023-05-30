@@ -143,3 +143,12 @@ body {
 .dropdown-space {
     margin-top: -1rem !important;
 }
+
+.content .container {
+    padding-top: 3rem !important;
+}
+
+.entry-column-title {
+    height: 2.5rem;
+    margin-top: 1.5rem;
+}

@@ -37,12 +37,21 @@
                 <a id="new" href="javascript:void(0);"
                     class="text-body-secondary link-muted text-decoration-none"><small>New</small></a>
             </div>
+
             <div id="owned" class="list-group list-group-flush border-bottom scrollarea"></div>
         </div>
         <div class="spacer"></div>
         <div class="content">
             <div class="background"></div>
-            <div class="container p-4 position-relative">
+            <div class="px-4 pt-3 position-fixed" style="width: calc(100% - 340px); z-index: 30">
+                <div class="input-group">
+                    <input id="search-phrase" type="text" class="form-control" placeholder="Search phrase"
+                        aria-label="Search phrase" aria-describedby="button-search">
+                    <button class="btn btn-outline-secondary" type="button" id="button-search">Search</button>
+                </div>
+            </div>
+
+            <div class="container p-4 pt-0 position-relative">
                 <div id="rated" class="row" style="justify-content: space-evenly">
                 </div>
             </div>
