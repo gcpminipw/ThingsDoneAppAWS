@@ -33,7 +33,7 @@
         setInterval(() => {
             for (let i in scoreMapping) {
                 $(`#rate-${i}`).css({
-                    top: `min(0px, calc(100vh - ${$(`#rate-${i}`).outerHeight()}px - 1.5rem))`
+                    top: `min(7rem, calc(100vh - ${$(`#rate-${i}`).outerHeight()}px - 1.5rem))`
                 })
             }
         }, 200)
