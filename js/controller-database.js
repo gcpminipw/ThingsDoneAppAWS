@@ -13,11 +13,11 @@ var Journify = window.Journify || {};
         if (token) {
             authToken = token;
         } else {
-            window.location.href = '/signin.html';
+            window.location.href = '/signin';
         }
     }).catch(function handleTokenError(error) {
         alert(error);
-        window.location.href = '/signin.html';
+        window.location.href = '/signin';
     });
 
     function makeApiCall(method, path, data, auth = true) {
