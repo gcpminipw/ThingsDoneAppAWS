@@ -35,7 +35,7 @@ var Journify = window.Journify || {};
                 headers: auth ? { Authorization: authToken } : {},
                 data: method == "GET" ? data : JSON.stringify(data),
                 contentType: 'application/json',
-                success: onResponse,
+                success: resolve,
                 error: onResponse
             });
         })
