@@ -139,3 +139,7 @@ body {
     width: 340px;
     min-width: 340px;
 }
+
+.dropdown-space {
+    margin-top: -1rem !important;
+}

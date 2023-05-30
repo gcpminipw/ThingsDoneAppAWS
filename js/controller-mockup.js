@@ -21,7 +21,7 @@
         const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1)
 
         const user = Math.random() > 0.5 ? [] : ['different-user']
-        notes.new(capitalize(randomWord()), capitalize(randomSentence()), Math.floor(Math.random() * 5) + 1, ...user)
+        notes.new(capitalize(randomWord()), capitalize(randomSentence()), Math.floor(Math.random() * 4) + 1, ...user)
 
         i++
         if (i > 120) clearInterval(inter)

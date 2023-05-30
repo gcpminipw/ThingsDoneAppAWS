@@ -27,6 +27,7 @@
         }
         callbacks.draw()
         $('#new').click(function () { makeEditable(addEntry({}, $('#owned'))) })
+        $('#logout-button').click(Journify.signOut)
         setInterval(() => {
             for (let i in scoreMapping) {
                 $(`#rate-${i}`).css({
