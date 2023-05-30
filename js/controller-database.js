@@ -22,9 +22,12 @@ var Journify = window.Journify || {};
 
     function makeApiCall(method, path, data, auth = true) {
         return new Promise(function (resolve, reject) {
-            const onError = (error) => {
-                console.warn(error)
-                reject(error)
+            const onResponse = (response) => {
+                if (response.status == 200 || response.status == 201) {
+                    resolve()
+                } else {
+                    reject(response)
+                }
             }
             $.ajax({
                 method: method,
@@ -32,8 +35,8 @@ var Journify = window.Journify || {};
                 headers: auth ? { Authorization: authToken } : {},
                 data: method == "GET" ? data : JSON.stringify(data),
                 contentType: 'application/json',
-                success: resolve,
-                error: onError
+                success: onResponse,
+                error: onResponse
             });
         })
     }
