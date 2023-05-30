@@ -27,6 +27,7 @@ var Journify = window.Journify || {};
 
     Journify.signOut = function signOut() {
         userPool.getCurrentUser().signOut();
+        window.location.href = signinUrl;
     };
 
     Journify.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
