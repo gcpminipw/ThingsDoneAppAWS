@@ -22,6 +22,10 @@ var Journify = window.Journify || {};
 
     function makeApiCall(method, path, data, auth = true) {
         return new Promise(function (resolve, reject) {
+            const onError = (error) => {
+                console.warn(error)
+                reject(error)
+            }
             $.ajax({
                 method: method,
                 url: _config.api.invokeUrl + path,
