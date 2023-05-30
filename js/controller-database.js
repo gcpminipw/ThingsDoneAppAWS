@@ -26,7 +26,7 @@ var Journify = window.Journify || {};
                 method: method,
                 url: _config.api.invokeUrl + path,
                 headers: auth ? { Authorization: authToken } : {},
-                data: data,
+                data: JSON.stringify(data),
                 contentType: 'application/json',
                 success: resolve,
                 error: reject
